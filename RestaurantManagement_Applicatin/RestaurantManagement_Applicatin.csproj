@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repository\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\RestaurantManagement_Data\RestaurantManagement_Data.csproj" />
+    <ProjectReference Include="..\RestaurantManagement_Domain\RestaurantManagement_Domain.csproj" />
   </ItemGroup>
 
 </Project>
