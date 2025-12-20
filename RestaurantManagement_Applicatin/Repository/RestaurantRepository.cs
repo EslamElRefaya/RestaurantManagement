@@ -14,12 +14,15 @@ namespace RestaurantManagement_Applicatin.Repository
 
         public async Task<IEnumerable<Restaurant>> GetAllItemsRepo()
         {
-           return await _context.Restaurants.ToListAsync();
+           return await _context.Restaurants
+                
+                .ToListAsync();
         }
 
         public async Task<Restaurant> GetItemByIdRepo(int id)
         {
             return await _context.Restaurants.SingleOrDefaultAsync(r=>r.Id==id);
+            
         }
 
         public async Task AddItemRepo(Restaurant restaurant)

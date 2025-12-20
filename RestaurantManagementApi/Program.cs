@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using RestaurantManagement_Applicatin.Repository;
 using RestaurantManagement_Applicatin.Services.Restaurants;
@@ -17,6 +18,12 @@ var defaultConnection = builder.Configuration.GetConnectionString("MyConnectionD
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(defaultConnection));
 
+////////////////// this P-->> 8 
+// Add AutoMapper
+builder.Services.AddAutoMapper(typeof(Program));
+
+
+
 ///////////////////// this P-->> 9
 //////////////////// Add Repository & Services (Your Application)
 // Restaurant-->> Repo & Srev
@@ -24,7 +31,6 @@ builder.Services.AddScoped<IRestaurantManagementRepository<Restaurant>,Restauran
 builder.Services.AddScoped<IRestaurantsService,RestaurantsService>();
 
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

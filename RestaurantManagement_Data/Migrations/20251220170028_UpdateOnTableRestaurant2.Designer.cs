@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurantManagement_Data;
 
@@ -11,9 +12,11 @@ using RestaurantManagement_Data;
 namespace RestaurantManagement_Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251220170028_UpdateOnTableRestaurant2")]
+    partial class UpdateOnTableRestaurant2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,7 +40,7 @@ namespace RestaurantManagement_Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("cuisineTypes", (string)null);
+                    b.ToTable("cuisineTypes");
                 });
 
             modelBuilder.Entity("RestaurantManagement_Domain.Models.Food", b =>
@@ -68,7 +71,7 @@ namespace RestaurantManagement_Data.Migrations
 
                     b.HasIndex("MenuId");
 
-                    b.ToTable("Foods", (string)null);
+                    b.ToTable("Foods");
                 });
 
             modelBuilder.Entity("RestaurantManagement_Domain.Models.FoodReview", b =>
@@ -90,7 +93,7 @@ namespace RestaurantManagement_Data.Migrations
 
                     b.HasIndex("FoodId");
 
-                    b.ToTable("FoodReview", (string)null);
+                    b.ToTable("FoodReview");
                 });
 
             modelBuilder.Entity("RestaurantManagement_Domain.Models.MealType", b =>
@@ -108,7 +111,7 @@ namespace RestaurantManagement_Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MealTypes", (string)null);
+                    b.ToTable("MealTypes");
                 });
 
             modelBuilder.Entity("RestaurantManagement_Domain.Models.Menu", b =>
@@ -131,7 +134,7 @@ namespace RestaurantManagement_Data.Migrations
 
                     b.HasIndex("RestaurantId");
 
-                    b.ToTable("Menus", (string)null);
+                    b.ToTable("Menus");
                 });
 
             modelBuilder.Entity("RestaurantManagement_Domain.Models.Order", b =>
@@ -155,7 +158,7 @@ namespace RestaurantManagement_Data.Migrations
 
                     b.HasIndex("RestaurantId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("RestaurantManagement_Domain.Models.OrderItem", b =>
@@ -184,7 +187,7 @@ namespace RestaurantManagement_Data.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItems", (string)null);
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("RestaurantManagement_Domain.Models.Restaurant", b =>
@@ -219,7 +222,7 @@ namespace RestaurantManagement_Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Restaurants", (string)null);
+                    b.ToTable("Restaurants");
                 });
 
             modelBuilder.Entity("RestaurantManagement_Domain.Models.RestaurantCuisineType", b =>
@@ -242,7 +245,7 @@ namespace RestaurantManagement_Data.Migrations
 
                     b.HasIndex("RestaurantId");
 
-                    b.ToTable("RestaurantCuisineType", (string)null);
+                    b.ToTable("RestaurantCuisineType");
                 });
 
             modelBuilder.Entity("RestaurantManagement_Domain.Models.RestaurantReview", b =>
@@ -267,7 +270,7 @@ namespace RestaurantManagement_Data.Migrations
 
                     b.HasIndex("RestaurantId");
 
-                    b.ToTable("RestaurantReview", (string)null);
+                    b.ToTable("RestaurantReview");
                 });
 
             modelBuilder.Entity("RestaurantManagement_Domain.Models.Food", b =>

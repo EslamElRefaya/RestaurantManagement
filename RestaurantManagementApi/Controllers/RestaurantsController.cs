@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantManagement_Applicatin.Services.Restaurants;
@@ -11,10 +12,12 @@ namespace RestaurantManagementApi.Controllers
     public class RestaurantsController : ControllerBase
     {
         private readonly IRestaurantsService _restaurantsService;
+        private readonly IMapper _mapper;
 
-        public RestaurantsController(IRestaurantsService restaurantsService)
+        public RestaurantsController(IRestaurantsService restaurantsService, IMapper mapper)
         {
             _restaurantsService = restaurantsService;
+            _mapper = mapper;
         }
         [HttpGet("Get All Restaurants")]
         public async Task<IActionResult> GetAllRestaurantsAsync()
@@ -22,10 +25,12 @@ namespace RestaurantManagementApi.Controllers
             var restaurants = await _restaurantsService.GetAllRestaurantsService();
             return Ok(restaurants);
         }
-        [HttpGet("Get Restaurant By Id/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetRestaurantByIdAsync(int id)
         {
             var restaurant = await _restaurantsService.GetRestaurantByIdService(id);
+            if (restaurant == null)
+                return NotFound($"No founded this Restaurant with this id:{id}");
             return Ok(restaurant);
         }
         [HttpPost("Add Restaurant")]
@@ -35,31 +40,40 @@ namespace RestaurantManagementApi.Controllers
                 return BadRequest("Restaurant must be Required !!");
             var restaurant = new Restaurant()
             {
-                Name = restaurantDto.Name,
+                Name=restaurantDto.Name,
                 Address = restaurantDto.Address,
                 CreatedAt = restaurantDto.CreatedAt,
-                StartingWork = restaurantDto.StartingWork,
                 WorkingHours = restaurantDto.WorkingHours,
+                StartingWork = restaurantDto.StartingWork,
             };
 
             await _restaurantsService.AddRestaurantService(restaurant);
             return Ok(restaurant);
         }
-        [HttpPut("Update Restaurant/{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateRestaurantAsync(int id, AddAndUpdateRestaurantDto restaurantDto)
         {
             var restaurant = await _restaurantsService.GetRestaurantByIdService(id);
+
             if (restaurant == null)
                 return NotFound("Restaurant Not Found !!");
-            restaurant.Name = restaurantDto.Name;
-            restaurant.Address = restaurantDto.Address;
-            restaurant.CreatedAt = restaurantDto.CreatedAt;
-            restaurant.WorkingHours = restaurantDto.WorkingHours;
-         
-            await _restaurantsService.UpdateRestaurantService(restaurant);
-            return Ok(restaurant);
+
+            if(!ModelState.IsValid)
+                return BadRequest("Restaurant Data must be provided !!");
+            else
+            {
+                restaurant.Name = restaurantDto.Name;
+                restaurant.Address = restaurantDto.Address;
+                restaurant.CreatedAt = restaurantDto.CreatedAt;
+                restaurant.WorkingHours = restaurantDto.WorkingHours;
+                restaurant.StartingWork = restaurantDto.StartingWork;
+
+                await _restaurantsService.UpdateRestaurantService(restaurant);
+                return Ok(restaurant);
+            }
+               
         }
-        [HttpDelete("Delete Restaurant/{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRestaurantAsync(int id)
         {
             var restaurant = await _restaurantsService.GetRestaurantByIdService(id);
