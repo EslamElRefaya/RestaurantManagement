@@ -6,7 +6,8 @@ namespace RestaurantManagement_Domain.Models
     {
         [MaxLength(250)]
         public string Address { get; set; } = string.Empty;
-        public DateTime CreatedAt { get; set; }
+        public DateOnly CreatedAt { get; set; }
+        public TimeSpan StartingWork { get; set; }
         public int WorkingHours { get; set; }
         public bool IsOpenning { get; set; }
 

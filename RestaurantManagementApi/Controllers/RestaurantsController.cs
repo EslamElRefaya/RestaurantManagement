@@ -29,7 +29,7 @@ namespace RestaurantManagementApi.Controllers
             return Ok(restaurant);
         }
         [HttpPost("Add Restaurant")]
-        public async Task<IActionResult> AddRestaurantAsync(RestaurantDto restaurantDto)
+        public async Task<IActionResult> AddRestaurantAsync(AddAndUpdateRestaurantDto restaurantDto)
         {
             if (restaurantDto == null)
                 return BadRequest("Restaurant must be Required !!");
@@ -38,15 +38,15 @@ namespace RestaurantManagementApi.Controllers
                 Name = restaurantDto.Name,
                 Address = restaurantDto.Address,
                 CreatedAt = restaurantDto.CreatedAt,
+                StartingWork = restaurantDto.StartingWork,
                 WorkingHours = restaurantDto.WorkingHours,
-                IsOpenning = restaurantDto.IsOpenning,
             };
 
             await _restaurantsService.AddRestaurantService(restaurant);
             return Ok(restaurant);
         }
         [HttpPut("Update Restaurant/{id}")]
-        public async Task<IActionResult> UpdateRestaurantAsync(int id, RestaurantDto restaurantDto)
+        public async Task<IActionResult> UpdateRestaurantAsync(int id, AddAndUpdateRestaurantDto restaurantDto)
         {
             var restaurant = await _restaurantsService.GetRestaurantByIdService(id);
             if (restaurant == null)
@@ -55,7 +55,7 @@ namespace RestaurantManagementApi.Controllers
             restaurant.Address = restaurantDto.Address;
             restaurant.CreatedAt = restaurantDto.CreatedAt;
             restaurant.WorkingHours = restaurantDto.WorkingHours;
-            restaurant.IsOpenning = restaurantDto.IsOpenning;
+         
             await _restaurantsService.UpdateRestaurantService(restaurant);
             return Ok(restaurant);
         }
