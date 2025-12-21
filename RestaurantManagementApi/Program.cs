@@ -3,6 +3,7 @@ using RestaurantManagement_Applicatin.Repository;
 using RestaurantManagement_Applicatin.Services.Restaurants;
 using RestaurantManagement_Data;
 using RestaurantManagement_Domain.Models;
+using RestaurantManagement_Shared.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,9 @@ builder.Services.AddSwaggerGen();
 var defaultConnection = builder.Configuration.GetConnectionString("MyConnectionDbBySqlServer");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(defaultConnection));
+// ///////////////this P-->> 8 
+// Add AutoMapper  ==>> You Must put MappingProfiles insted of Program
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 ///////////////////// this P-->> 9
 //////////////////// Add Repository & Services (Your Application)

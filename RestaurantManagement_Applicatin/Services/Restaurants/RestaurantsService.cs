@@ -39,30 +39,31 @@ namespace RestaurantManagement_Applicatin.Services.Restaurants
             await _restaurantRepository.DeletetemRepo(restaurant);
         }
 
-        private bool CalculateIsOpenning(TimeSpan startingWork, int workingHours)
+        private bool CalculateIsOpenning(DateTime startingWork, int workingHours)
         {
-            //case 1: Restaurant is open 24 hours
+            // case 1: Restaurant is open 24 hours
             if (workingHours >= 24)
                 return true;
 
-            // calculate current time hour and minutes only
+            // current time (time only)
             TimeSpan timeNow = DateTime.Now.TimeOfDay;
 
-            //calculate closing time
-            TimeSpan closingTime = startingWork.Add(TimeSpan.FromHours(workingHours));
+            // starting time (time only)
+            TimeSpan startTime = startingWork.TimeOfDay;
 
-            //case:2 Restaurant closes after midnight
-            //ex : opens at 19:00 and closes at 01:00
-            if (closingTime < startingWork)
+            // calculate closing time
+            TimeSpan closingTime = startTime.Add(TimeSpan.FromHours(workingHours));
+
+            // case 2: Restaurant closes after midnight
+            // ex: opens at 19:00 and closes at 01:00
+            if (closingTime < startTime)
             {
-             
-                return timeNow >= startingWork || timeNow <= closingTime;
+                return timeNow >= startTime || timeNow <= closingTime;
             }
 
-            //case 3: Normal Restaurant (opens and closes on the same day)
+            // case 3: Normal Restaurant (same day)
             // ex: opens at 09:00 and closes at 17:00
-            return timeNow >= startingWork && timeNow <= closingTime;
+            return timeNow >= startTime && timeNow <= closingTime;
         }
-
     }
 }

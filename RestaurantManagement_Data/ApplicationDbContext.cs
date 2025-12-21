@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurantManagement_Domain.Models;
 namespace RestaurantManagement_Data
 {
-   public class ApplicationDbContext: DbContext   
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> context)
-                          :base(context) 
+                          : base(context)
         {
         }
         public DbSet<Restaurant> Restaurants { get; set; }
@@ -15,8 +16,6 @@ namespace RestaurantManagement_Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Food> Foods { get; set; }
-
-
-
+       
     }
 }
