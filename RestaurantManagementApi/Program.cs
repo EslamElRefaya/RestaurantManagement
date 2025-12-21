@@ -28,6 +28,7 @@ builder.Services.AddAutoMapper(typeof(MappingProfiles));
 builder.Services.AddScoped<IRestaurantManagementRepository<Restaurant>,RestaurantRepository>();
 builder.Services.AddScoped<IRestaurantsService,RestaurantsService>();
 // Restaurant-->> Repo & Srev
+
 builder.Services.AddScoped<IRestaurantManagementRepository<CuisineType>, CuisineTypRepository>();
 builder.Services.AddScoped<ICuisineTypeServices, CuisineTypeServices>();
 

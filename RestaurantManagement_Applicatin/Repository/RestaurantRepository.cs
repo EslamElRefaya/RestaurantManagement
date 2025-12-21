@@ -34,7 +34,7 @@ namespace RestaurantManagement_Applicatin.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeletetemRepo(Restaurant restaurant)
+        public async Task DeleteItemRepo(Restaurant restaurant)
         {
             _context.Restaurants.Remove(restaurant);
             await _context.SaveChangesAsync();
