@@ -36,7 +36,7 @@ namespace RestaurantManagement_Applicatin.Services.Restaurants
 
         public async Task DeleteRestaurantService(Restaurant restaurant)
         {
-            await _restaurantRepository.DeletetemRepo(restaurant);
+            await _restaurantRepository.DeleteItemRepo(restaurant);
         }
 
         private bool CalculateIsOpenning(DateTime startingWork, int workingHours)

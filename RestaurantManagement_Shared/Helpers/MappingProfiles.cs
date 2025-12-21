@@ -15,7 +15,7 @@ namespace RestaurantManagement_Shared.Helpers
 
             //CuisineType
             CreateMap<CuisineType, DetailsCuisineTypeDto>();
-            CreateMap<DetailsCuisineTypeDto, CuisineType>();
+            CreateMap<AddAndEditCuisineTypeDto, CuisineType>();
         }
     }
 }

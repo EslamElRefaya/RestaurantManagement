@@ -23,7 +23,7 @@ namespace RestaurantManagement_Applicatin.Services.CuisineTypes
 
         public async Task DeleteCuisineTypeService(CuisineType cuisineType)
         {
-            await _cuisineTypeRepository.DeletetemRepo(cuisineType);
+            await _cuisineTypeRepository.DeleteItemRepo(cuisineType);
         }
 
         public async Task<IEnumerable<CuisineType>> GetAllCuisineTypesService()
