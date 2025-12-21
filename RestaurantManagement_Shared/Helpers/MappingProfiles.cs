@@ -1,5 +1,6 @@
 using AutoMapper;
 using RestaurantManagement_Domain.Models;
+using RestaurantManagement_Shared.Dtos.CuisineTypes;
 using RestaurantManagement_Shared.Dtos.Restaurants;
 
 namespace RestaurantManagement_Shared.Helpers
@@ -8,13 +9,13 @@ namespace RestaurantManagement_Shared.Helpers
     {
         public MappingProfiles()
         {
-            // AddAndUpdateRestaurantDto <-> Restaurant
+            //  Restaurant
             CreateMap<AddAndUpdateRestaurantDto, Restaurant>().ReverseMap();
-
-            // Restaurant -> DetailsRestaurantDto
             CreateMap<Restaurant, DetailsRestaurantDto>().ReverseMap();
-                
 
+            //CuisineType
+            CreateMap<CuisineType, DetailsCuisineTypeDto>();
+            CreateMap<DetailsCuisineTypeDto, CuisineType>();
         }
     }
 }
