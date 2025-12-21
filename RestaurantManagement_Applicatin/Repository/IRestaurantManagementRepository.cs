@@ -12,7 +12,7 @@ namespace RestaurantManagement_Applicatin.Repository
         Task<TEntity> GetItemByIdRepo(int id);
         Task AddItemRepo(TEntity entity);
         Task UpdateItemRepo(TEntity entity);
-        Task DeletetemRepo(TEntity entity);
+        Task DeleteItemRepo(TEntity entity);
     }
     
 }

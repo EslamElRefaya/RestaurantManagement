@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\NewFolder1\**" />
+    <EmbeddedResource Remove="Services\NewFolder1\**" />
+    <None Remove="Services\NewFolder1\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\RestaurantManagement_Data\RestaurantManagement_Data.csproj" />
     <ProjectReference Include="..\RestaurantManagement_Domain\RestaurantManagement_Domain.csproj" />
   </ItemGroup>
