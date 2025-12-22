@@ -1,6 +1,9 @@
+using System.Xml.Serialization;
 using AutoMapper;
 using RestaurantManagement_Domain.Models;
 using RestaurantManagement_Shared.Dtos.CuisineTypes;
+using RestaurantManagement_Shared.Dtos.Foods;
+using RestaurantManagement_Shared.Dtos.MealTypes;
 using RestaurantManagement_Shared.Dtos.RestaurantCuisineType;
 using RestaurantManagement_Shared.Dtos.RestaurantReviews;
 using RestaurantManagement_Shared.Dtos.Restaurants;
@@ -28,12 +31,17 @@ namespace RestaurantManagement_Shared.Helpers
 
             CreateMap<AddAndEditRestaurantCuisineTypeDto, RestaurantCuisineType>();
 
-            //
+            //RestaurantReview
             CreateMap<AddAndEditRestaurantReviewDto,RestaurantReview>();
             CreateMap<RestaurantReview, DetailsRestaurantReviewDto>()
                   .ForMember(r=>r.RestaurantName,
                           opt=>opt.MapFrom(src=>src.Restaurant.Name)).ReverseMap();
 
+            //MealType
+            CreateMap<AddAndEditMealTypeDto, MealType>();
+            //MealType
+            CreateMap<AddAndEditFoodDto, Food>();
+            CreateMap<Food, DetailsFoodDto>();
         }
     }
 }

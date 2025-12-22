@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using RestaurantManagement_Applicatin.Repository;
 using RestaurantManagement_Applicatin.Services.CuisineTypes;
+using RestaurantManagement_Applicatin.Services.FoodReviews;
+using RestaurantManagement_Applicatin.Services.Foods;
+using RestaurantManagement_Applicatin.Services.MealTypes;
 using RestaurantManagement_Applicatin.Services.RestaurantCuisineTypes;
 using RestaurantManagement_Applicatin.Services.RestaurantReviews;
 using RestaurantManagement_Applicatin.Services.Restaurants;
@@ -38,6 +41,15 @@ builder.Services.AddScoped<IRestaurantCuisineTypeServices, RestaurantCuisineType
 // IRestaurantReview-->> Repo & Srev
 builder.Services.AddScoped<IRestaurantManagementRepository<RestaurantReview>, RestaurantReviewRepository>();
 builder.Services.AddScoped<IRestaurantReviewService, RestaurantReviewService>();
+// IRestaurantReview-->> Repo & Srev
+builder.Services.AddScoped<IRestaurantManagementRepository<MealType>, MealTypeRepository>();
+builder.Services.AddScoped<IMealTypeServices, MealTypServices>();
+// Food-->> Repo & Srev
+builder.Services.AddScoped<IRestaurantManagementRepository<Food>, FoodRepoistory>();
+builder.Services.AddScoped<IFoodServices, FoodServices>();
+// Food-->> Repo & Srev
+builder.Services.AddScoped<IRestaurantManagementRepository<FoodReview>, FoodReviewRepository>();
+builder.Services.AddScoped<IFoodReviewServices, FoodReviewServices>();
 
 var app = builder.Build();
 

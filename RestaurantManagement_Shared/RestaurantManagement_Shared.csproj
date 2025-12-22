@@ -14,4 +14,8 @@
     <ProjectReference Include="..\RestaurantManagement_Domain\RestaurantManagement_Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dtos\Orders\" />
+  </ItemGroup>
+
 </Project>
