@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurantManagement_Data;
 
@@ -11,9 +12,11 @@ using RestaurantManagement_Data;
 namespace RestaurantManagement_Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251221200200_AddRestaurantCuisineType")]
+    partial class AddRestaurantCuisineType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,7 +93,7 @@ namespace RestaurantManagement_Data.Migrations
 
                     b.HasIndex("FoodId");
 
-                    b.ToTable("FoodReviews");
+                    b.ToTable("FoodReview");
                 });
 
             modelBuilder.Entity("RestaurantManagement_Domain.Models.MealType", b =>
@@ -267,7 +270,7 @@ namespace RestaurantManagement_Data.Migrations
 
                     b.HasIndex("RestaurantId");
 
-                    b.ToTable("RestaurantReviews");
+                    b.ToTable("RestaurantReview");
                 });
 
             modelBuilder.Entity("RestaurantManagement_Domain.Models.Food", b =>

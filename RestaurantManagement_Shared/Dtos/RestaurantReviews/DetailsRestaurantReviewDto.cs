@@ -1,12 +1,12 @@
-namespace RestaurantManagement_Domain.Models
+namespace RestaurantManagement_Shared.Dtos.RestaurantReviews
 {
-   public class RestaurantReview
+  public class DetailsRestaurantReviewDto
     {
+
         public int RestaurantReviewId { get; set; }
         public string Description { get; set; } = string.Empty;
         public int Rating { get; set; }
-
         public int RestaurantId { get; set; }
-        public Restaurant Restaurant { get; set; } = default!;
+        public string  RestaurantName { get; set; } = default!;
     }
 }
