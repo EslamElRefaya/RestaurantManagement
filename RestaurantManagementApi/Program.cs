@@ -4,13 +4,15 @@ using RestaurantManagement_Applicatin.Services.CuisineTypes;
 using RestaurantManagement_Applicatin.Services.FoodReviews;
 using RestaurantManagement_Applicatin.Services.Foods;
 using RestaurantManagement_Applicatin.Services.MealTypes;
+using RestaurantManagement_Applicatin.Services.OrderItems;
+using RestaurantManagement_Applicatin.Services.Orders;
+using RestaurantManagement_Applicatin.Services.Payments;
 using RestaurantManagement_Applicatin.Services.RestaurantCuisineTypes;
 using RestaurantManagement_Applicatin.Services.RestaurantReviews;
 using RestaurantManagement_Applicatin.Services.Restaurants;
 using RestaurantManagement_Data;
 using RestaurantManagement_Domain.Models;
 using RestaurantManagement_Shared.Helpers;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -19,7 +21,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 var defaultConnection = builder.Configuration.GetConnectionString("MyConnectionDbBySqlServer");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(defaultConnection));
@@ -27,11 +28,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Add AutoMapper  ==>> You Must put MappingProfiles insted of Program
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
-///////////////////// this P-->> 9
-//////////////////// Add Repository & Services (Your Application)
+
+/////////////// this P-->> 9
+#region Add Repository & Services (Your Application)
 // Restaurant-->> Repo & Srev
-builder.Services.AddScoped<IRestaurantManagementRepository<Restaurant>,RestaurantRepository>();
-builder.Services.AddScoped<IRestaurantsService,RestaurantsService>();
+builder.Services.AddScoped<IRestaurantManagementRepository<Restaurant>, RestaurantRepository>();
+builder.Services.AddScoped<IRestaurantsService, RestaurantsService>();
 // CuisineType-->> Repo & Srev
 builder.Services.AddScoped<IRestaurantManagementRepository<CuisineType>, CuisineTypRepository>();
 builder.Services.AddScoped<ICuisineTypeServices, CuisineTypeServices>();
@@ -50,6 +52,17 @@ builder.Services.AddScoped<IFoodServices, FoodServices>();
 // Food-->> Repo & Srev
 builder.Services.AddScoped<IRestaurantManagementRepository<FoodReview>, FoodReviewRepository>();
 builder.Services.AddScoped<IFoodReviewServices, FoodReviewServices>();
+// Order-->> Repo & Srev
+builder.Services.AddScoped<IRestaurantManagementRepository<Order>, OrderRepository>();
+builder.Services.AddScoped<IOrderServices, OrderServices>();
+// Payment-- >> Repo & Srev
+//builder.Services.AddScoped<IRestaurantManagementRepository<P>, OrderRepository>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+// OrderItem-->> Repo & Srev
+builder.Services.AddScoped<IRestaurantManagementRepository<OrderItem>, OrderItemRepository>();
+builder.Services.AddScoped<IOrderItemService, OrderItemService>();
+#endregion
+
 
 var app = builder.Build();
 

@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantManagement_Applicatin.Services.FoodReviews;
@@ -11,16 +12,18 @@ namespace RestaurantManagementApi.Controllers
     public class FoodReviewsController : ControllerBase
     {
         private readonly IFoodReviewServices _foodReviewServices;
-
-        public FoodReviewsController(IFoodReviewServices foodReviewServices)
+        private readonly IMapper _mapper;
+        public FoodReviewsController(IFoodReviewServices foodReviewServices, IMapper mapper)
         {
             _foodReviewServices = foodReviewServices;
+            _mapper = mapper;
         }
         [HttpGet]
         public async Task<IActionResult> GetAllFoodReviewsAsync()
         {
             var foodReviews = await _foodReviewServices.GetAllFoodReviewsService();
-            return Ok(foodReviews);
+            var data = _mapper.Map<IEnumerable<DetailsFoodReviewDto>>(foodReviews);
+            return Ok(data);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetFoodReviewByIdAsync(int id)
@@ -29,19 +32,16 @@ namespace RestaurantManagementApi.Controllers
             if (foodReview == null)
                 return NotFound($"Food Review with ID {id} not found.");
 
-            return Ok(foodReview);
+            var data = _mapper.Map<DetailsFoodReviewDto>(foodReview);
+            return Ok(data);
         }
         [HttpPost]
         public async Task<IActionResult> AddFoodReviewAsync(AddAndEditFoodReviewDto foodReviewDto)
         {
-            if(foodReviewDto == null)
+            if (foodReviewDto == null)
                 return BadRequest("Food Review data is null.");
 
-            var foodReview = new FoodReview
-            {
-                Description = foodReviewDto.Description,
-                FoodId = foodReviewDto.FoodId
-            };
+            var foodReview = _mapper.Map<FoodReview>(foodReviewDto);
 
             await _foodReviewServices.AddFoodReviewService(foodReview);
             return Ok(foodReview);
@@ -50,12 +50,10 @@ namespace RestaurantManagementApi.Controllers
         public async Task<IActionResult> UpdateFoodReviewAsync(int id, AddAndEditFoodReviewDto foodReviewDto)
         {
             var foodReview = await _foodReviewServices.GetFoodReviewByIdService(id);
-           
+
             if (foodReview == null)
                 return NotFound($"Food Review with ID {id} not found.");
-
-            foodReview.Description = foodReviewDto.Description;
-            foodReview.FoodId = foodReviewDto.FoodId;
+            _mapper.Map(foodReviewDto, foodReview);
             await _foodReviewServices.UpdateFoodReviewService(foodReview);
             return Ok(foodReview);
         }
@@ -63,12 +61,12 @@ namespace RestaurantManagementApi.Controllers
         public async Task<IActionResult> DeleteFoodReviewAsync(int id)
         {
             var foodReview = await _foodReviewServices.GetFoodReviewByIdService(id);
-           
+
             if (foodReview == null)
                 return NotFound($"Food Review with ID {id} not found.");
 
             await _foodReviewServices.DeleteFoodReviewService(foodReview);
-            return NoContent();
+            return Ok("Delete Operation is successfully");
         }
     }
 }

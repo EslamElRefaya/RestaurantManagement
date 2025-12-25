@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RestaurantManagement_Domain.Models
 {
@@ -7,6 +8,11 @@ namespace RestaurantManagement_Domain.Models
         Pending = 0,
         Completed = 1,
         Canceled = 2
+    }
+    public enum PaymentStatus
+    {
+        Unpaid = 0,
+        Paid = 1
     }
     public class Order
     {
@@ -20,7 +26,10 @@ namespace RestaurantManagement_Domain.Models
         public decimal TotalPrice { get; set; }
         [MaxLength(500)]
         public string? Notes { get; set; }=string.Empty;
-        public  bool IsPayment { get; set; }=false;
+        
+        public PaymentStatus PaymentState { get; set; } = PaymentStatus.Unpaid;
+        public bool IsPayment => PaymentState == PaymentStatus.Paid;
+
         public ICollection<OrderItem> OrderItems { get; set; }
 
     }

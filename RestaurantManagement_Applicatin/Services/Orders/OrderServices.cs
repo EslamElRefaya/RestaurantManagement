@@ -27,9 +27,9 @@ namespace RestaurantManagement_Applicatin.Services.Orders
             await _orderRepository.DeleteItemRepo(order);
         }
 
-        public Task<IEnumerable<Order>> GetAllOrdersService()
+        public async Task<IEnumerable<Order>> GetAllOrdersService()
         {
-           return _orderRepository.GetAllItemsRepo();
+           return await _orderRepository.GetAllItemsRepo();
         }
 
         public async Task<Order> GetOrderByIdService(int id)

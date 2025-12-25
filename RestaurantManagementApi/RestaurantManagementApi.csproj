@@ -25,4 +25,8 @@
     <ProjectReference Include="..\RestaurantManagement_Shared\RestaurantManagement_Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\foods\" />
+  </ItemGroup>
+
 </Project>

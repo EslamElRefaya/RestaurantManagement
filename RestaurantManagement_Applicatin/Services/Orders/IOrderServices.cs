@@ -9,5 +9,7 @@ namespace RestaurantManagement_Applicatin.Services.Orders
         Task AddOrderService(Order order);
         Task DeleteOrderService(Order order);
         Task UpdateOrderService(Order order);
+       
+
     }
 }

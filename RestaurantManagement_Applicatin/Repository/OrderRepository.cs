@@ -28,13 +28,15 @@ namespace RestaurantManagement_Applicatin.Repository
         {
             return await _context.Orders
                 .Include(o=>o.Restaurant)
+                .Include(o => o.OrderItems).ThenInclude(i=>i.Food)
                 .ToListAsync();
         }
 
-        public async Task<Order> GetItemByIdRepo(int id)
+        public async Task<Order?> GetItemByIdRepo(int id)
         {
             return await _context.Orders
                 .Include(o=>o.Restaurant)
+                .Include(o => o.OrderItems).ThenInclude(i => i.Food)
                 .SingleOrDefaultAsync(o => o.OrderId == id);
         }
 

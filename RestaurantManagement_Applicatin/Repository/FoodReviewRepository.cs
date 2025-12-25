@@ -32,12 +32,16 @@ namespace RestaurantManagement_Applicatin.Repository
 
         public async Task<IEnumerable<FoodReview>> GetAllItemsRepo()
         {
-            return await _context.FoodReviews.ToListAsync();
+            return await _context.FoodReviews
+                 .Include(fr => fr.Food)
+                .ToListAsync();
         }
 
-        public async Task<FoodReview> GetItemByIdRepo(int id)
+        public async Task<FoodReview?> GetItemByIdRepo(int id)
         {
-            return await _context.FoodReviews.SingleOrDefaultAsync(fr=>fr.FoodReviewId==id);
+            return await _context.FoodReviews
+                .Include(fr => fr.Food)
+                .SingleOrDefaultAsync(fr=>fr.FoodReviewId==id);
         }
 
         public async Task UpdateItemRepo(FoodReview foodReview)
