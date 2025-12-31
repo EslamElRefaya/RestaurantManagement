@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Packaging.Signing;
 using RestaurantManagement_Applicatin.Services.Foods;
@@ -7,6 +8,7 @@ using RestaurantManagement_Shared.Dtos.Foods;
 
 namespace RestaurantManagementApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FoodsController : ControllerBase

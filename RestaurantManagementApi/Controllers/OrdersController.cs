@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantManagement_Applicatin.Services.Orders;
@@ -80,6 +81,7 @@ namespace RestaurantManagementApi.Controllers
             return Ok("Delete is Successed");
         }
 
+        [Authorize(Roles ="Admin")]
         [HttpPost("Payment/{ordrId}")]
         public async Task<IActionResult> PayAsync(int ordrId)
         {

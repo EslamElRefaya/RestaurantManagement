@@ -7,5 +7,7 @@ namespace RestaurantManagement_Shared.Dtos.Orders
 
         [MaxLength(500)]
         public string? Notes { get; set; }
+        [MaxLength(450)]
+        public string UserId { get; set; }=string.Empty;
     }
 }

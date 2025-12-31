@@ -28,6 +28,7 @@ namespace RestaurantManagement_Applicatin.Repository
         {
             return await _context.Orders
                 .Include(o=>o.Restaurant)
+                .Include(o=>o.ApplicationUser)
                 .Include(o => o.OrderItems).ThenInclude(i=>i.Food)
                 .ToListAsync();
         }

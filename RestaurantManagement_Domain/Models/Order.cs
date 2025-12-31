@@ -32,5 +32,9 @@ namespace RestaurantManagement_Domain.Models
 
         public ICollection<OrderItem> OrderItems { get; set; }
 
+        public string UserId { get; set; }
+        [ForeignKey(nameof(UserId))]
+        public ApplicationUser ApplicationUser { get; set; }
+
     }
 }

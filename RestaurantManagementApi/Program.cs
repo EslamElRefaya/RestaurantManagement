@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RestaurantManagement_Applicatin.Repository;
+using RestaurantManagement_Applicatin.Services.Account;
 using RestaurantManagement_Applicatin.Services.CuisineTypes;
 using RestaurantManagement_Applicatin.Services.FoodReviews;
 using RestaurantManagement_Applicatin.Services.Foods;
@@ -13,17 +15,42 @@ using RestaurantManagement_Applicatin.Services.Restaurants;
 using RestaurantManagement_Data;
 using RestaurantManagement_Domain.Models;
 using RestaurantManagement_Shared.Helpers;
+// this P-->> 1
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// this P-->> 2
+// Add Framework Services.
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// this P-->> 3
+//Add Configuration & Options
+
+// this P-->> 4
+//Add connection string or Add 'DbContext'
 var defaultConnection = builder.Configuration.GetConnectionString("MyConnectionDbBySqlServer");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(defaultConnection));
+
+// this P-->> 5
+//add inject userManager and roleManager identity to application
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                            .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+// this P-->> 6
+// this add Custom JWT Authentication
+builder.Services.AddJWTAuthentication(builder.Configuration);
+builder.Services.AddSwaggerGenAuthentication();
+// this P-->> 7
+// Add CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+});
+
 // ///////////////this P-->> 8 
 // Add AutoMapper  ==>> You Must put MappingProfiles insted of Program
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
@@ -61,22 +88,38 @@ builder.Services.AddScoped<IPaymentService, PaymentService>();
 // OrderItem-->> Repo & Srev
 builder.Services.AddScoped<IRestaurantManagementRepository<OrderItem>, OrderItemRepository>();
 builder.Services.AddScoped<IOrderItemService, OrderItemService>();
+// Account-->> Repo & Srev
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+
 #endregion
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////
 var app = builder.Build();
+//////////////////////////////////////////////////////////////////////////////////////////////
 
+// this P-->> 1
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+// this P-->> 2
+//HTTPS redirection
 app.UseHttpsRedirection();
 
+// this P-->> 3
+//CORS
+app.UseCors("AllowAll");
+// this P-->> 4
+app.UseAuthentication();
+
+// this P-->> 5
 app.UseAuthorization();
 
+// this P-->> 6
 app.MapControllers();
 
+// this P-->> 7
 app.Run();

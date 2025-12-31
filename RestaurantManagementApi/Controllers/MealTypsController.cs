@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantManagement_Applicatin.Services.MealTypes;
@@ -7,6 +8,7 @@ using RestaurantManagement_Shared.Dtos.MealTypes;
 
 namespace RestaurantManagementApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MealTypsController : ControllerBase

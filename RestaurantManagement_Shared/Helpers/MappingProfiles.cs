@@ -71,6 +71,8 @@ namespace RestaurantManagement_Shared.Helpers
             CreateMap<Order, DetailsOrderDto>()
                 .ForMember(dest => dest.RestaurantName,
                            opt => opt.MapFrom(src => src.Restaurant.Name))
+                .ForMember(dest=>dest.UserFullName,
+                           opt =>opt.MapFrom(src=>$"{src.ApplicationUser.FristName} {src.ApplicationUser.LastName}"))
                 .ForMember(dest => dest.Items,
                            opt => opt.MapFrom(src => src.OrderItems))
                 .ForMember(dest => dest.TotalPrice,
